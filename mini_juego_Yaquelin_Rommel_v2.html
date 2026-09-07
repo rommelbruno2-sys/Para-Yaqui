@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Para Yaquelin ❤️</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:linear-gradient(135deg,#fff0f5,#ffdce8,#f7e5ff);
+color:#432632;overflow:hidden}
+.card{width:min(92%,440px);min-height:540px;padding:32px 25px;border-radius:30px;
+background:rgba(255,255,255,.88);backdrop-filter:blur(12px);box-shadow:0 20px 60px rgba(100,35,70,.2);
+text-align:center;display:flex;flex-direction:column;justify-content:center;position:relative}
+h1{font-size:30px;margin:0 0 15px}h2{font-size:23px;margin:0 0 14px}
+p{font-size:17px;line-height:1.6;margin:10px 0 22px}.heart{font-size:64px;animation:pulse 1.5s infinite}
+button{border:0;border-radius:18px;padding:14px 20px;margin:7px;font-size:16px;cursor:pointer;
+background:#e85b83;color:white;box-shadow:0 8px 20px rgba(229,82,125,.25);transition:.2s}
+button:hover{transform:translateY(-2px)}.option{display:block;width:100%;background:white;color:#71394c;
+border:2px solid #f0bfd0;box-shadow:none}.small{font-size:13px;opacity:.62}
+.progress{height:7px;background:#f2dce3;border-radius:99px;margin-bottom:25px;overflow:hidden}
+.bar{height:100%;background:#e85b83;width:0;transition:.5s}.shake{animation:shake .35s}
+.music{display:inline-block;color:#9d3d5e;text-decoration:none;font-size:14px;margin-top:4px}
+.floating{position:fixed;bottom:-30px;font-size:23px;animation:float 5s linear forwards;pointer-events:none}
+@keyframes pulse{50%{transform:scale(1.12)}}@keyframes shake{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+@keyframes float{to{transform:translateY(-110vh) rotate(25deg);opacity:0}}
+</style>
+</head>
+<body>
+<div class="card"><div id="game">
+<div class="heart">❤️</div>
+<h1>Hola, Yaquelin…</h1>
+<p>Tengo algo que decirte, pero esta vez quiero que lo descubras jugando. 👀</p>
+<p>Y sí… <strong>Rommel</strong> está detrás de esto. 😌</p>
+<button onclick="start()">Empezar 💌</button>
+<p class="small">Prometo que vale la pena llegar al final.</p>
+</div></div>
+<script>
+let level=0;
+const qs=[
+["Nivel 1 👀","¿Cuál crees que es uno de mis recuerdos favoritos contigo?",
+["Una conversación cualquiera","La primera vez que me abrazaste 🥹","Cuando nos conocimos"],1],
+["Nivel 2 ❤️","Desde aquel abrazo, ¿qué crees que pasó conmigo?",
+["Nada, absolutamente nada 😌","Me dieron ganas de salir corriendo 😂","Empezaste a importarme de una manera diferente 🫶🏻"],2],
+["Nivel 3 😏","Pregunta peligrosa… ¿qué haría Rommel si pudiera elegir ahora mismo?",
+["Seguir fingiendo que no siente nada","Tomarte de la mano y acercarse un poquito más 👀","Salir corriendo otra vez 😂"],1]
+];
+function start(){level=0;render()}
+function render(){
+let q=qs[level];
+document.getElementById("game").innerHTML=
+`<div class="progress"><div class="bar" style="width:${level/qs.length*100}%"></div></div>
+<h2>${q[0]}</h2><p>${q[1]}</p><div id="opts"></div><p class="small">Nivel ${level+1} de ${qs.length}</p>`;
+q[2].forEach((t,i)=>{let b=document.createElement("button");b.className="option";b.textContent=t;
+b.onclick=()=>choose(i);document.getElementById("opts").appendChild(b)});
+}
+function choose(i){
+if(i!==qs[level][3]){document.getElementById("game").classList.add("shake");
+setTimeout(()=>document.getElementById("game").classList.remove("shake"),350);return}
+level++;if(level<qs.length)render();else prefinal();
+}
+function prefinal(){
+document.getElementById("game").innerHTML=
+`<div class="heart">🥹</div><h1>Ya casi, Yaquelin…</h1>
+<p>Hay una pregunta que no tiene opciones.</p>
+<p><strong>¿Quieres saber lo que Rommel lleva rato queriéndote decir?</strong></p>
+<button onclick="reveal()">Sí, quiero saberlo ❤️</button>`;
+}
+function reveal(){
+document.getElementById("game").innerHTML=
+`<div class="heart">💗</div>
+<h1>Yaquelin… ❤️</h1>
+<p>¿Te acuerdas de la primera vez que me abrazaste?</p>
+<p>Ese momento se quedó guardado en mi memoria de una manera muy especial. 🥹</p>
+<p>Desde ese día, cada vez que pienso en ti, una parte de mí vuelve a ese momento. ❤️</p>
+<p><strong>Y creo que ya no quiero seguir haciéndome el que no siente nada…</strong></p>
+<p style="font-size:26px;font-weight:800">Me gustas. Muchísimo.<br>Y sí, Yaquelin… te quiero. ❤️</p>
+<p>Y ahora que ya sabes mi secreto… 👀<br>
+quizá la próxima vez que me abraces, tenga que aprovechar para quedarme un poquito más cerca de ti. 😏❤️</p>
+<a class="music" href="https://www.youtube.com/results?search_query=Cuarteto+de+Nos+Enamorado+Tuyo" target="_blank">🎵 Escuchar “Enamorado tuyo”</a>
+<p class="small">— Rommel</p>`;
+for(let i=0;i<25;i++)setTimeout(spawn,i*100);
+}
+function spawn(){let e=document.createElement("div");e.className="floating";
+e.textContent=["❤️","💗","💕","✨","🌷","🥰"][Math.floor(Math.random()*6)];
+e.style.left=Math.random()*100+"vw";e.style.animationDuration=(3+Math.random()*3)+"s";
+document.body.appendChild(e);setTimeout(()=>e.remove(),6000)}
+</script>
+</body></html>
